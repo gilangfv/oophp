@@ -4,8 +4,8 @@ interface InfoProduk{
 	public function getInfoLengkap();
 }
 
- class Produk {
-	private $judul ,
+abstract class Produk {
+	protected $judul ,
 			$penulis,
 			$penerbit,
 			$diskon,
@@ -67,13 +67,9 @@ interface InfoProduk{
 		return "$this->penulis, $this->penerbit";
 	}
 
+	abstract public function getInfo();
+
 	
-
-	public function getInfo(){
-		$str = "{$this->judul} | {$this->getLabel()} Rp.{$this->harga}";
-		return $str;
-	}
-
 }
 
 class Komik extends Produk implements InfoProduk {
@@ -83,6 +79,11 @@ class Komik extends Produk implements InfoProduk {
 		parent::__construct($judul , $penulis  , $penerbit  , $harga );
 
 		$this->halaman = $halaman;
+	}
+
+	public function getInfo(){
+		$str = "{$this->judul} | {$this->getLabel()} Rp.{$this->harga}";
+		return $str;
 	}
 
 	
@@ -103,6 +104,10 @@ class Game extends Produk implements InfoProduk{
 	}
 
 	
+	public function getInfo(){
+		$str = "{$this->judul} | {$this->getLabel()} Rp.{$this->harga}";
+		return $str;
+	}
 
 
 	public function getInfoLengkap(){
@@ -135,5 +140,7 @@ $cetakProduk = new cetakInfo();
 $cetakProduk->tambahProduk($produk1);
 $cetakProduk->tambahProduk($produk2);
 echo $cetakProduk->cetak();
+
+
 
  ?>
